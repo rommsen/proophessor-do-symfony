@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!--Todo-->
+        <service id="prooph.proophessor_do.model.todo.command.add_deadline_to_todo"
+                 class="Prooph\ProophessorDo\Model\Todo\Handler\AddDeadlineToTodoHandler">
+            <argument type="service" id="prooph.proophessor_do.todo.repository.event_store_todo_list"/>
+        </service>
+
+        <service id="prooph.proophessor_do.model.todo.command.add_reminder_to_todo"
+                 class="Prooph\ProophessorDo\Model\Todo\Handler\AddReminderToTodoHandler">
+            <argument type="service" id="prooph.proophessor_do.todo.repository.event_store_todo_list"/>
+        </service>
+
+        <service id="prooph.proophessor_do.model.todo.command.mark_todo_as_done"
+                 class="Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler">
+            <argument type="service" id="prooph.proophessor_do.todo.repository.event_store_todo_list"/>
+        </service>
+
+        <service id="prooph.proophessor_do.model.todo.command.post_todo"
+                 class="Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler">
+            <argument type="service" id="prooph.proophessor_do.todo.repository.event_store_user_collection"/>
+            <argument type="service" id="prooph.proophessor_do.todo.repository.event_store_todo_list"/>
+        </service>
+
+        <service id="prooph.proophessor_do.model.todo.command.remind_todo_assignee"
+                 class="Prooph\ProophessorDo\Model\Todo\Handler\RemindTodoAssigneeHandler">
+            <argument type="service" id="prooph.proophessor_do.todo.repository.event_store_todo_list"/>
+        </service>
+
+        <service id="prooph.proophessor_do.model.todo.command.reopen_todo"
+                 class="Prooph\ProophessorDo\Model\Todo\Handler\ReopenTodoHandler">
+            <argument type="service" id="prooph.proophessor_do.todo.repository.event_store_todo_list"/>
+        </service>
+
+        <!--User-->
+        <service id="prooph.proophessor_do.model.user.command.register_user"
+                 class="Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler">
+            <argument type="service" id="prooph.proophessor_do.todo.repository.event_store_user_collection"/>
+        </service>
+
+    </services>
+</container>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="prooph.proophessor_do.todo.service_bus.command_bus.factory"
+                 class="Prooph\ProophessorDo\TodoBundle\ServiceBus\CommandBusFactory"/>
+
+        <service id="prooph.proophessor_do.todo.service_bus.command_bus"
+                 class="Prooph\ServiceBus\CommandBus">
+            <factory service="prooph.proophessor_do.todo.service_bus.command_bus.factory" method="__invoke"/>
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <service id="prooph.proophessor_do.todo.service_bus.event_bus_factory"
+                 class="Prooph\ProophessorDo\TodoBundle\ServiceBus\EventBusFactory"/>
+
+        <service id="prooph.proophessor_do.todo.service_bus.event_bus"
+                 class="Prooph\ServiceBus\EventBus">
+            <factory service="prooph.proophessor_do.todo.service_bus.event_bus_factory" method="__invoke"/>
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <service id="prooph.proophessor_do.todo.service_bus.lazy_handler_locator"
+                 class="Prooph\ProophessorDo\TodoBundle\ServiceBus\LazyHandlerLocator">
+            <argument type="service" id="service_container"/>
+        </service>
+
+    </services>
+</container>

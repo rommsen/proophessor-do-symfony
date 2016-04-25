@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="proophessor_do_todo.infrastructure.aggregate_translator_factory"
+                 class="ProophessorDo\TodoBundle\Infrastructure\AggregateTranslatorFactory"/>
+
+        <service id="proophessor_do_todo.infrastructure.aggregate_translator"
+                 class="Prooph\EventStore\Aggregate\AggregateTranslator">
+            <factory service="proophessor_do_todo.infrastructure.aggregate_translator_factory" method="__invoke"/>
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <service id="proophessor_do_todo.infrastructure.event_publisher"
+                 class="Prooph\EventStoreBusBridge\EventPublisher">
+            <argument type="service" id="prooph.proophessor_do.todo.service_bus.event_bus"/>
+        </service>
+
+        <service id="proophessor_do_todo.infrastructure.event_store_factory"
+                 class="ProophessorDo\TodoBundle\Infrastructure\EventStoreFactory"/>
+
+        <service id="proophessor_do_todo.infrastructure.event_store"
+                 class="Prooph\EventStore\EventStore">
+            <factory service="proophessor_do_todo.infrastructure.event_store_factory" method="__invoke"/>
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <service id="proophessor_do_todo.infrastructure.transaction_manager_factory"
+                 class="ProophessorDo\TodoBundle\Infrastructure\TransactionManagerFactory"/>
+
+        <service id="proophessor_do_todo.infrastructure.transaction_manager"
+                 class="Prooph\EventStoreBusBridge\TransactionManager">
+            <factory service="proophessor_do_todo.infrastructure.transaction_manager_factory" method="__invoke"/>
+            <argument type="service" id="service_container"/>
+        </service>
+    </services>
+</container>
